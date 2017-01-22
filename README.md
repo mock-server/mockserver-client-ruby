@@ -2,9 +2,8 @@
 
 > Communicate with [MockServer](http://mock-server.com/) from ruby
 
-[![Build Status](https://app.snap-ci.com/jamesdbloom/mockserver-client-ruby/branch/master/build_image)](https://app.snap-ci.com/jamesdbloom/mockserver-client-ruby/branch/master) [![mockserver-client](https://badge.fury.io/rb/mockserver-client.png)](https://rubygems.org/gems/mockserver-client)
 
-For chat room: [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jamesdbloom/mockserver?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://app.snap-ci.com/jamesdbloom/mockserver-client-ruby/branch/master/build_image)](https://app.snap-ci.com/jamesdbloom/mockserver-client-ruby/branch/master) [![mockserver-client](https://badge.fury.io/rb/mockserver-client.png)](https://rubygems.org/gems/mockserver-client) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jamesdbloom/mockserver?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Getting Started
 
