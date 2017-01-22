@@ -1,3 +1,14 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
 # Ruby #
 ########
 *.gem
@@ -19,3 +30,23 @@ lib/bundler/man
 pkg
 spec/reports
 vendor/bundle
+target
+
+# vagrant #
+###########
+.vagrant
+
+# drone.io build testing #
+##########################
+drone.io
+
+# JetBrains config files #
+##########################
+.idea
+*.iml
+
+# Eclipse config files #
+########################
+.project
+.classpath
+.settings
