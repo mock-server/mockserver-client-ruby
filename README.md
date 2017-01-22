@@ -1,8 +1,12 @@
-# Mockserver Client
+# mockserver-client-ruby
 
-A Ruby client for [MockServer](http://www.mock-server.com) project. This client follows the Java client's fluent style closely by using Ruby blocks.
+> Communicate with [MockServer](http://mock-server.com/) from ruby
 
-## Installation
+[![Build Status](https://app.snap-ci.com/jamesdbloom/mockserver-client-ruby/branch/master/build_image)](https://app.snap-ci.com/jamesdbloom/mockserver-client-ruby/branch/master) [![mockserver-client](https://badge.fury.io/rb/mockserver-client.png)](https://rubygems.org/gems/mockserver-client)
+
+For chat room: [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jamesdbloom/mockserver?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Getting Started
 
 Add this line to your application's Gemfile:
 
@@ -194,7 +198,6 @@ Expectation (use in register)
 Getter methods for `request`, `response` and `forward` methods will optionally accept a block. If block is passed object is configured before it is returned. The attribute `times` has conventional getter and setter methods.
 
 ## CLI
-
 This gem comes with a command line interface which allow you to run the Mock Server calls from the command line. When this gem is installed, you will have the `mockserver` executable on your PATH. Type `mockserver --help` and you will get this output: 
 
 ```bash
@@ -252,9 +255,10 @@ Running with parameters:
 ```
 
 # Issues
-
 If you have any problems, please [check the project issues](https://github.com/jamesdbloom/mockserver/issues?state=open).
 
 # Contributions
+Pull requests are, of course, very welcome! Please read our [contributing to the project](https://github.com/jamesdbloom/mockserver/wiki/Contributing-to-the-project) guide first. Then head over to the [open issues](https://github.com/jamesdbloom/mockserver/issues?state=open) to see what we need help with. Make sure you let us know if you intend to work on something. Also, check out the [milestones](https://github.com/jamesdbloom/mockserver/milestones) to see what is planned for future releases.
 
-Pull requests are, of course, very welcome! Please read our [contributing to the project](https://github.com/jamesdbloom/mockserver/wiki/Contributing-to-the-project) guide first. Then head over to the [open issues](https://github.com/jamesdbloom/mockserver/issues?state=open) to see what we need help with. Make sure you let us know if you intend to work on something. Also, check out the [milestones](https://github.com/jamesdbloom/mockserver/issues/milestones) to see what is planned for future releases.
+# Maintainers
+* [James D Bloom](http://blog.jamesdbloom.com)
