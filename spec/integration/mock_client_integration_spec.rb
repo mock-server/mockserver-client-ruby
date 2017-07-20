@@ -16,67 +16,149 @@ RSpec.configure do |config|
   end
 end
 
-describe MockServer::MockServerClient do
-
+shared_context 'setup expectation' do
   let(:client) { MockServer::MockServerClient.new('localhost', 8098) }
 
+  let(:response_body) { 'responseBody' }
+  let(:response_code) { '201' }
+  let(:request_path) { '/somePath' }
+  let(:param) { nil }
+
+  let(:expectation_body) { exact('someBody') }
+  let(:request_body) { 'someBody' }
+
+  def setup_expectation(request)
+    # additional expectation setup
+  end
+
+  def setup_response(response)
+    # additional response setup
+  end
+
+  def setup_request(request)
+    # additional request setup
+  end
+
   before do
-    # To suppress logging output to standard output, write to a temporary file
-    client.logger = LoggingFactory::DEFAULT_FACTORY.log('test', output: 'tmp.log', truncate: true)
-  end
-
-  def create_agent
-    uri      = URI('http://api.nsa.gov:1337/agent')
-    http     = Net::HTTP.new(uri.host, uri.port)
-    req      = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-    req.body = { name: 'John Doe', role: 'agent' }.to_json
-    res = http.request(req)
-    puts "response #{res.body}"
-  rescue => e
-    puts "failed #{e}"
-  end
-
-  it 'setup complex expectation' do
     WebMock.allow_net_connect!
 
-    # given
+    # To suppress logging output to standard output, write to a temporary file
+    client.logger = LoggingFactory::DEFAULT_FACTORY.log('test', output: 'tmp.log', truncate: true)
+
     mock_expectation = expectation do |expectation|
       expectation.request do |request|
+        request.body = expectation_body
         request.method = 'POST'
-        request.path   = '/somePath'
-        request.query_string_parameters << parameter('param', 'someQueryStringValue')
-        request.headers << header('Header', 'someHeaderValue')
-        request.cookies << cookie('cookie', 'someCookieValue')
-        request.body = exact('someBody')
+        request.path   = request_path
+        request.query_string_parameters << parameter('param', param) if param
+
+        setup_expectation request
       end
 
       expectation.response do |response|
-        response.status_code = 201
-        response.headers << header('header', 'someHeaderValue')
-        response.body  = body('someBody')
-        response.delay = delay_by(:SECONDS, 1)
+        response.status_code = response_code
+        response.body = body(response_body)
+
+        setup_response response
       end
 
       expectation.times = exactly(1)
     end
 
-    # and
-    expect(client.register(mock_expectation).code).to eq(201)
+    @mock_expectation_code = client.register(mock_expectation).code
+
+    url_params = %(?param=#{param}) if param
 
     # when
-    uri           = URI('http://localhost:8098/somePath')
+    uri           = URI('http://localhost:8098')
     http          = Net::HTTP.new(uri.host, uri.port)
-    req           = Net::HTTP::Post.new('/somePath?param=someQueryStringValue')
-    req['Header'] = 'someHeaderValue'
-    req['Cookie'] = 'cookie=someCookieValue'
-    req.body      = 'someBody'
-    res           = http.request(req)
-
-    # then
-    expect(res.code).to eq('201')
-    expect(res.body).to eq('someBody')
+    req           = Net::HTTP::Post.new(%(#{request_path}#{url_params}))
+    setup_request req
+    req.body      = request_body
+    @res           = http.request(req)
 
     WebMock.disable_net_connect!
   end
+end
 
+shared_examples 'a successful mock expectation' do
+  it 'sets the expectation successfully' do
+    expect(@mock_expectation_code).to eq(201)
+  end
+end
+
+shared_examples 'a successful mock response' do
+  it 'returns the expectations response' do
+    expect(@res.code).to eq(response_code)
+    expect(@res.body).to eq(response_body)
+  end
+end
+
+
+describe MockServer::MockServerClient do
+  context 'when a complex expectation is set up' do
+    include_context 'setup expectation' do
+      let(:param) { 'someQueryStringValue' }
+
+      def setup_expectation(request)
+        request.headers << header('Header', 'someHeaderValue')
+        request.cookies << cookie('cookie', 'someCookieValue')
+      end
+
+      def setup_response(response)
+        response.headers << header('header', 'someHeaderValue')
+        response.delay = delay_by(:SECONDS, 1)
+      end
+
+      def setup_request(request)
+        request['Header'] = 'someHeaderValue'
+        request['Cookie'] = 'cookie=someCookieValue'
+      end
+    end
+
+    it_behaves_like 'a successful mock expectation'
+    it_behaves_like 'a successful mock response'
+  end
+
+  context 'when the mock body type is json' do
+    include_context 'setup expectation' do
+      let(:expectation_body) { json({ param1: 'param1', param2: 'param2' }.to_json) }
+      let(:request_body) { { param2: 'param2', param1: 'param1' }.to_json }
+    end
+
+    it_behaves_like 'a successful mock expectation'
+    it_behaves_like 'a successful mock response'
+  end
+
+  context 'when the mock body type is json schema' do
+    include_context 'setup expectation' do
+      let(:expectation_body) {
+        json_schema({
+          type: 'object',
+          properties: {
+              id: { type: 'integer' },
+              name: { type: 'string' }
+          },
+          required: ['id', 'name']
+        }.to_json)
+      }
+      let(:request_body) { { id: 123, name: 'bob' }.to_json }
+    end
+
+    it_behaves_like 'a successful mock expectation'
+    it_behaves_like 'a successful mock response'
+  end
+
+  context 'when the mock body type is xml schema' do
+    include_context 'setup expectation' do
+      let(:expectation_body) { xml_schema('
+        <xs:element name="id" type="xs:integer"/>
+        <xs:element name="name" type="xs:string"/>
+      ') }
+      let(:request_body) { { id: 123, name: 'bob' }.to_json }
+    end
+
+    it_behaves_like 'a successful mock expectation'
+    it_behaves_like 'a successful mock response'
+  end
 end
