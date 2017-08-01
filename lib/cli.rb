@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'thor'
 require 'colorize'
 require_relative './mockserver-client'
@@ -88,7 +90,7 @@ class MockServerCLI < Thor
   def retrieve
     execute_command do |client, _|
       result = options.data ? client.retrieve(read_file(options.data)) : client.retrieve
-      puts "RESULT:\n".bold + "#{result.to_json}".green
+      puts "RESULT:\n".bold + result.to_json.green
     end
   end
 

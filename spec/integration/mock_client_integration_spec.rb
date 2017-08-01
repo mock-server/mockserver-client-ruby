@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'rspec'
 require 'net/http'
 require 'webmock/rspec'
@@ -16,6 +18,7 @@ RSpec.configure do |config|
   end
 end
 
+# rubocop:disable Metrics/BlockLength
 shared_context 'setup expectation' do
   let(:client) { MockServer::MockServerClient.new('localhost', 8098) }
 
@@ -70,12 +73,12 @@ shared_context 'setup expectation' do
     url_params = %(?param=#{param}) if param
 
     # when
-    uri           = URI('http://localhost:8098')
-    http          = Net::HTTP.new(uri.host, uri.port)
-    req           = Net::HTTP::Post.new(%(#{request_path}#{url_params}))
+    uri = URI('http://localhost:8098')
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Post.new(%(#{request_path}#{url_params}))
     setup_request req
-    req.body      = request_body
-    @res           = http.request(req)
+    req.body = request_body
+    @res = http.request(req)
 
     WebMock.disable_net_connect!
   end
@@ -93,7 +96,6 @@ shared_examples 'a successful mock response' do
     expect(@res.body).to eq(response_body)
   end
 end
-
 
 describe MockServer::MockServerClient do
   context 'when a complex expectation is set up' do
@@ -132,16 +134,20 @@ describe MockServer::MockServerClient do
 
   context 'when the mock body type is json schema' do
     include_context 'setup expectation' do
-      let(:expectation_body) {
+      let(:expectation_body) do
         json_schema({
           type: 'object',
           properties: {
-              id: { type: 'integer' },
-              name: { type: 'string' }
+            id: {
+              type: 'integer'
+            },
+            name: {
+              type: 'string'
+            }
           },
-          required: ['id', 'name']
+          required: %w[id name]
         }.to_json)
-      }
+      end
       let(:request_body) { { id: 123, name: 'bob' }.to_json }
     end
 
@@ -151,10 +157,12 @@ describe MockServer::MockServerClient do
 
   context 'when the mock body type is xml schema' do
     include_context 'setup expectation' do
-      let(:expectation_body) { xml_schema('
-        <xs:element name="id" type="xs:integer"/>
-        <xs:element name="name" type="xs:string"/>
-      ') }
+      let(:expectation_body) do
+        xml_schema('
+          <xs:element name="id" type="xs:integer"/>
+          <xs:element name="name" type="xs:string"/>
+        ')
+      end
       let(:request_body) { { id: 123, name: 'bob' }.to_json }
     end
 

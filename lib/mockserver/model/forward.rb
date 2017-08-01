@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'hashie'
 require_relative './enum'
 
@@ -36,6 +38,6 @@ module MockServer::Model
       obj
     end
 
-    alias_method :http_forward, :forward
+    alias :http_forward forward
   end
 end

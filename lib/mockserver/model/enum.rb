@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 #
 # A class to model a Java-like Enum.
 # To create an Enum extend this class and override :allowed_values method with allowed enum values.
@@ -13,13 +15,13 @@ module MockServer::Model
     # @raise [Exception] if the supplied value is not valid for this enum
     def initialize(supplied_value)
       supplied_value = pre_process_value(supplied_value)
-      fail "Supplied value: #{supplied_value} is not valid. Allowed values are: #{allowed_values.inspect}" unless allowed_values.include?(supplied_value)
+      raise "Supplied value: #{supplied_value} is not valid. Allowed values are: #{allowed_values.inspect}" unless allowed_values.include?(supplied_value)
       @value = supplied_value
     end
 
     # @return [Array] a list of values allowed by this enum
     def allowed_values
-      fail 'Override :allowed_values in Enum class'
+      raise 'Override :allowed_values in Enum class'
     end
 
     # A pre-process hook for a value before it is stored

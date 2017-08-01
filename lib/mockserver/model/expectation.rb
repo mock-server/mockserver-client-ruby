@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require_relative './array_of'
 require_relative './request'
 require_relative './response'

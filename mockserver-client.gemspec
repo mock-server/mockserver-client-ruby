@@ -1,9 +1,11 @@
 # coding: utf-8
+# frozen_string_literal: true
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'mockserver/version'
 
-Gem::Specification.new do |spec|
+Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.name        = 'mockserver-client'
   spec.version     = MockServer::VERSION
   spec.authors     = ['Nayyara Samuel', 'James D Bloom']
@@ -16,22 +18,22 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = '~> 2.0'
 
   spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(/^bin\//) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1'
   spec.add_development_dependency 'rake', '~> 10.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'simplecov', '~> 0.8'
-  spec.add_development_dependency 'webmock', '~> 1.18'
+  spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'rubocop', '~> 0.23'
 
   spec.add_dependency 'hashie', '~> 3.0'
   spec.add_dependency 'json', '~> 1.8'
   spec.add_dependency 'json_pure', '~> 1.8'
   spec.add_dependency 'activesupport', '~> 4.1'
-  spec.add_dependency 'rest-client', '~> 1.7'
+  spec.add_dependency 'rest-client'
   spec.add_dependency 'logging_factory', '~> 0.0.2'
   spec.add_dependency 'thor', '~> 0.19'
   spec.add_dependency 'colorize', '~> 0.7'

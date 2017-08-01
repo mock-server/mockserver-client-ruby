@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'hashie'
 require_relative './parameter'
 require_relative './header'
@@ -23,8 +25,6 @@ module MockServer::Model
     include Hashie::Extensions::MethodAccess
     include Hashie::Extensions::IgnoreUndeclared
     include Hashie::Extensions::Coercion
-
-    ALLOWED_METHODS = [:GET, :POST, :PUT, :DELETE, :PATCH]
 
     property :method, required: true, default: :GET
     property :path, required: true, default: ''
@@ -77,7 +77,7 @@ module MockServer::Model
       body = payload['body']
 
       if body && body.is_a?(String)
-        payload.merge!('body' => { 'type' => :STRING, 'value' => body })
+        payload['body'] = { 'type' => :STRING, 'value' => body }
       end
 
       request = Request.new(symbolize_keys(payload))
@@ -85,6 +85,6 @@ module MockServer::Model
       request
     end
 
-    alias_method :http_request, :request
+    alias http_request request
   end
 end

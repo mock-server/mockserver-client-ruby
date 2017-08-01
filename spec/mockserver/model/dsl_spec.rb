@@ -1,5 +1,9 @@
+# encoding: UTF-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe 'MockServer::Model::DSL' do
   let(:header) { MockServer::Model::Header }
   let(:headers) do
@@ -16,12 +20,17 @@ RSpec.describe 'MockServer::Model::DSL' do
     let(:body_content) { 'Hello this is a message' }
     let(:request_json) do
       {
-        "method"=>"POST", "path"=>"/message",
-        "headers"=>[{ "name"=>"User-Agent", "values"=>["curl/7.22.0 (x86_64-pc-linux-gnu)"] },
-        {"name"=>"Host", "values"=>["localhost:2000"]}, {"name"=>"Accept", "values"=>["*/*"]},
-        {"name"=>"Content-Length", "values"=>["26"]},
-        {"name"=>"Content-Type", "values"=>["application/x-www-form-urlencoded"]}],
-        "keepAlive"=>true, "secure"=>false
+        'method' => 'POST',
+        'path' => '/message',
+        'headers' => [
+          { 'name' => 'User-Agent', 'values' => ['curl/7.22.0 (x86_64-pc-linux-gnu)'] },
+          { 'name' => 'Host', 'values' => ['localhost:2000'] },
+          { 'name' => 'Accept', 'values' => ['*/*'] },
+          { 'name' => 'Content-Length', 'values' => ['26'] },
+          { 'name' => 'Content-Type', 'values' => ['application/x-www-form-urlencoded'] }
+        ],
+        'keepAlive' => true,
+        'secure' => false
       }
     end
 
