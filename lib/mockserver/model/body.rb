@@ -22,11 +22,15 @@ module MockServer::Model
     include Hashie::Extensions::Coercion
 
     property :type, required: true
-    property :value
+    property :body
+    property :xpath
+    property :string
     property :parameters
 
     coerce_key :type, BodyType
-    coerce_key :value, String
+    coerce_key :body, String
+    coerce_key :xpath, String
+    coerce_key :string, String
     coerce_key :parameters, Parameters
   end
 
@@ -38,15 +42,15 @@ module MockServer::Model
     end
 
     def exact(value)
-      Body.new(type: :STRING, value: value)
+      Body.new(type: :STRING, string: value)
     end
 
     def regex(value)
-      Body.new(type: :REGEX, value: value)
+      Body.new(type: :REGEX, body: value)
     end
 
     def xpath(value)
-      Body.new(type: :XPATH, value: value)
+      Body.new(type: :XPATH, xpath: value)
     end
 
     def parameterized(*parameters)

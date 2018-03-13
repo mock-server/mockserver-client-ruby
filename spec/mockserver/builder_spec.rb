@@ -77,14 +77,14 @@ describe MockServer::Model::DSL do
   end
 
   it 'generates body correctly' do
-    expect(to_camelized_hash(regex('*/login'))).to eq('type' => 'REGEX', 'value' => '*/login')
-    expect(to_camelized_hash(xpath('/login[1]'))).to eq('type' => 'XPATH', 'value' => '/login[1]')
+    expect(to_camelized_hash(regex('*/login'))).to eq('type' => 'REGEX', 'body' => '*/login')
+    expect(to_camelized_hash(xpath('/login[1]'))).to eq('type' => 'XPATH', 'xpath' => '/login[1]')
     expect(to_camelized_hash(parameterized(parameter('token', '4jy5hh')))).to eq('type' => 'PARAMETERS', 'parameters' => [{ 'name' => 'token', 'values' => ['4jy5hh'] }])
   end
 
   it 'generates times object correctly' do
-    expect(to_camelized_hash(unlimited)).to eq('unlimited' => 'true', 'remainingTimes' => 0)
-    expect(to_camelized_hash(at_least(2))).to eq('unlimited' => 'true', 'remainingTimes' => 2)
+    expect(to_camelized_hash(unlimited)).to eq('unlimited' => true, 'remainingTimes' => 0)
+    expect(to_camelized_hash(at_least(2))).to eq('unlimited' => true, 'remainingTimes' => 2)
   end
 
 
@@ -92,21 +92,23 @@ describe MockServer::Model::DSL do
     let(:expectation) { MockServer::Model::Expectation.new }
     let(:request) { MockServer::Model::Request.new }
 
-    [{type: :XPATH, value: '/mock/instance'},
-     {type: :REGEX, value: '\d+.\d+'},
-     {type: :STRING, value: 'Mockserver is great'}].each do |request_hash|
+    [{type: :XPATH, xpath: '/mock/instance'},
+     {type: :REGEX, body: '\d+.\d+'},
+     {type: :STRING, string: 'Mockserver is great'}].each do |request_hash|
 
       it "generates a request body of type #{request_hash[:type]}" do
         request.body = MockServer::Model::Body.new(request_hash)
         expectation.request = request
 
+        result_hash = {}
+        request_hash.each do |key, value|
+          result_hash[key.to_s] = value.to_s
+        end
+
         expect(to_camelized_hash(expectation)).to eq({
           "httpRequest" => {
           "method" => "GET",
-            "body" => {
-              "type"  => request_hash[:type].to_s,
-              "value" => request_hash[:value].to_s
-            }
+            "body" => result_hash
           }
         })
       end
@@ -114,7 +116,7 @@ describe MockServer::Model::DSL do
 
     context 'when request body type binary' do
       let(:body) do
-        MockServer::Model::Body.new(type: :BINARY, value: 'TW9ja3NlcnZlciBpcyBncmVhdAo=')
+        MockServer::Model::Body.new(type: :BINARY, string: 'TW9ja3NlcnZlciBpcyBncmVhdAo=')
       end
 
       it 'correctly transforms to a string and updates the object' do
@@ -126,7 +128,7 @@ describe MockServer::Model::DSL do
             "method" => "GET",
             "body" => {
               "type" => "STRING",
-              "value" => "Mockserver is great\n"
+              "string" => "Mockserver is great\n"
             }
           }
         })
