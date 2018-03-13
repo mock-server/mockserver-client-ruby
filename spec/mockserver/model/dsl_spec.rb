@@ -38,7 +38,7 @@ RSpec.describe 'MockServer::Model::DSL' do
 
       expect(request.headers).to eq headers
       expect(request.body.type.to_s).to eq 'STRING'
-      expect(request.body.value).to eq body_content
+      expect(request.body.string).to eq body_content
     end
   end
 end

@@ -34,7 +34,7 @@ module MockServer::Model
     property :body, transform_with: (lambda do |body|
       if body && body.type.to_s == 'BINARY'
         body.type = :STRING
-        body.value = Base64.decode64(body.value)
+        body.string = Base64.decode64(body.string)
       end
 
       body
@@ -77,7 +77,7 @@ module MockServer::Model
       body = payload['body']
 
       if body && body.is_a?(String)
-        payload.merge!('body' => { 'type' => :STRING, 'value' => body })
+        payload.merge!('body' => { 'type' => :STRING, 'string' => body })
       end
 
       request = Request.new(symbolize_keys(payload))

@@ -17,6 +17,6 @@
   ],
   "body": {
     "type": "STRING",
-    "value": "{\"username\":\"foo\",\"password\":\"bar\"}"
+    "string": "{\"username\":\"foo\",\"password\":\"bar\"}"
   }
 }
