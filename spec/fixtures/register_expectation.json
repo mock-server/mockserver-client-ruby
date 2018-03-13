@@ -45,6 +45,6 @@
     },
     "times": {
         "remainingTimes": 2,
-        "unlimited": "false"
+        "unlimited": false
     }
 }

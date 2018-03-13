@@ -83,8 +83,8 @@ describe MockServer::Model::DSL do
   end
 
   it 'generates times object correctly' do
-    expect(to_camelized_hash(unlimited)).to eq('unlimited' => 'true', 'remainingTimes' => 0)
-    expect(to_camelized_hash(at_least(2))).to eq('unlimited' => 'true', 'remainingTimes' => 2)
+    expect(to_camelized_hash(unlimited)).to eq('unlimited' => true, 'remainingTimes' => 0)
+    expect(to_camelized_hash(at_least(2))).to eq('unlimited' => true, 'remainingTimes' => 2)
   end
 
 
