@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json', '~> 1.8'
   spec.add_dependency 'json_pure', '~> 1.8'
   spec.add_dependency 'activesupport', '~> 4.1'
-  spec.add_dependency 'rest-client', '~> 1.7'
+  spec.add_dependency 'rest-client', '~> 2.0.2'
   spec.add_dependency 'logging_factory', '~> 0.0.2'
   spec.add_dependency 'thor', '~> 0.19'
   spec.add_dependency 'colorize', '~> 0.7'
