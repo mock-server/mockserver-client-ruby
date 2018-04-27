@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require 'rspec'
@@ -170,3 +169,4 @@ describe MockServer::MockServerClient do
     it_behaves_like 'a successful mock response'
   end
 end
+# rubocop:enable Metrics/BlockLength

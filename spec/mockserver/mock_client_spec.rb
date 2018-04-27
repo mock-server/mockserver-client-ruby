@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
@@ -79,3 +78,4 @@ describe MockServer::MockServerClient do
     expect(client.retrieve(request(:POST, '/login')).code).to eq(200)
   end
 end
+# rubocop:enable Metrics/BlockLength

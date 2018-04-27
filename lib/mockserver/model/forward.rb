@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require 'hashie'
@@ -32,7 +31,7 @@ module MockServer::Model
 
   # DSL methods for forward
   module DSL
-    def forward(&_)
+    def forward(&_arg)
       obj = Forward.new
       yield obj if block_given?
       obj

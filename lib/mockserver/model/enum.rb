@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 #
@@ -34,6 +33,14 @@ module MockServer::Model
     # Override this for JSON representation
     def to_s
       @value.to_s
+    end
+
+    def as_json(_arg)
+      @value.to_s
+    end
+
+    def to_json(_arg)
+      "\"#{@value}\""
     end
   end
 

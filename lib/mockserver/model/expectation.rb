@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require_relative './array_of'
@@ -46,7 +45,7 @@ module MockServer
       # Method to setup the request on the expectation object
       # @yieldparam [Request] the request that this expectation references
       # @return [Expectation] this object according to the  the builder pattern
-      def request(&_)
+      def request(&_arg)
         if block_given?
           @request ||= Request.new
           yield @request
@@ -57,7 +56,7 @@ module MockServer
       # Method to setup the response on the expectation object
       # @yieldparam [Response] the response that this expectation references
       # @return [Expectation] this object according to the  the builder pattern
-      def response(&_)
+      def response(&_arg)
         if block_given?
           @response ||= Response.new
           yield @response
@@ -68,7 +67,7 @@ module MockServer
       # Method to setup the request on the expectation object
       # @yieldparam [Forward] the forward object that this expectation references
       # @return [Expectation] this object according to the  the builder pattern
-      def forward(&_)
+      def forward(&_arg)
         if block_given?
           @forward ||= Forward.new
           yield @forward
@@ -96,8 +95,8 @@ module MockServer
 
       # Override to_json method
       # @return [String] the json representation for this object
-      def to_json(*p)
-        to_hash.to_json(*p)
+      def to_json(*param)
+        to_hash.to_json(*param)
       end
 
       # Convert to hash
@@ -124,7 +123,7 @@ module MockServer
 
     # DSL method for creating expectation
     module DSL
-      def expectation(&_)
+      def expectation(&_arg)
         expectation = Expectation.new
         yield expectation if block_given?
         expectation

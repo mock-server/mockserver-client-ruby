@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require 'spec_helper'
@@ -51,3 +50,4 @@ RSpec.describe 'MockServer::Model::DSL' do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

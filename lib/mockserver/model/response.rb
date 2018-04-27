@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require_relative './body'
@@ -32,7 +31,7 @@ module MockServer::Model
 
   # DSL Methods for a response
   module DSL
-    def response(&_)
+    def response(&_arg)
       obj = Response.new
       yield obj if block_given?
       obj
