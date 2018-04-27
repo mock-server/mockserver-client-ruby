@@ -1,7 +1,6 @@
-# coding: utf-8
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'mockserver/version'
 
@@ -25,15 +24,15 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'bundler', '~> 1'
   spec.add_development_dependency 'rake', '~> 10.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rubocop', '~> 0.23'
   spec.add_development_dependency 'simplecov', '~> 0.8'
   spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'rubocop', '~> 0.23'
 
+  spec.add_dependency 'activesupport', '>= 4.1'
+  spec.add_dependency 'colorize', '~> 0.7'
   spec.add_dependency 'hashie', '~> 3.0'
   spec.add_dependency 'json', '>= 1.8'
-  spec.add_dependency 'activesupport', '>= 4.1'
-  spec.add_dependency 'rest-client', '>= 1.7'
   spec.add_dependency 'logging_factory', '~> 0.0.2'
+  spec.add_dependency 'rest-client', '>= 1.7'
   spec.add_dependency 'thor', '~> 0.19'
-  spec.add_dependency 'colorize', '~> 0.7'
 end

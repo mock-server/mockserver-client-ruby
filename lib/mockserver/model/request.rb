@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require 'hashie'
@@ -76,9 +75,7 @@ module MockServer::Model
     def request_from_json(payload)
       body = payload['body']
 
-      if body && body.is_a?(String)
-        payload['body'] = { 'type' => :STRING, 'value' => body }
-      end
+      payload['body'] = { 'type' => :STRING, 'value' => body } if body&.is_a?(String)
 
       request = Request.new(symbolize_keys(payload))
       yield request if block_given?

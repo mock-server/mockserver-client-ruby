@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# encoding: UTF-8
 
 #
 # The ArrayOf class stores instances of a given class only.
