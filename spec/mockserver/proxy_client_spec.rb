@@ -1,8 +1,9 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 
 describe MockServer::ProxyClient do
-
   let(:client) { MockServer::ProxyClient.new('localhost', 8080) }
   let(:retrieved_request) { FIXTURES.read('retrieved_request.json') }
   let(:retrieved_request_json) { retrieved_request.to_json }
@@ -13,12 +14,12 @@ describe MockServer::ProxyClient do
     client.logger = LoggingFactory::DEFAULT_FACTORY.log('test', output: 'tmp.log', truncate: true)
 
     # Stub requests
-    stub_request(:put, /.+\/retrieve/).with(body: search_request_json).to_return(
-      body:   "[#{retrieved_request_json}, #{retrieved_request_json}]",
+    stub_request(:put, %r{.+/retrieve}).with(body: search_request_json).to_return(
+      body: "[#{retrieved_request_json}, #{retrieved_request_json}]",
       status: 200
     )
-    stub_request(:put, /.+\/dumpToLog$/).to_return(status: 202).once
-    stub_request(:put, /.+\/dumpToLog\?type=java$/).to_return(status: 202).once
+    stub_request(:put, %r{.+/dumpToLog$}).to_return(status: 202).once
+    stub_request(:put, %r{.+/dumpToLog\?type=java$}).to_return(status: 202).once
   end
 
   it 'verifies requests correctly' do

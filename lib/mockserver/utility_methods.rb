@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'active_support/inflector'
 require 'json'
 
@@ -12,8 +14,7 @@ module MockServer::UtilityMethods
   # - camelize the keys of the hash
   # @param obj [Object] an object which will be used to create the hash. Must support :to_hash method
   # @return [Hash] the transformed hash
-  # rubocop:disable Style/MethodLength
-  # rubocop:disable Style/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
   def camelized_hash(obj)
     obj = obj && obj.respond_to?(:to_hash) ? obj.to_hash : obj
 

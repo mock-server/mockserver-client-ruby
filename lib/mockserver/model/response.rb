@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require_relative './body'
 require_relative './delay'
 require_relative './header'
@@ -40,6 +42,6 @@ module MockServer::Model
       Base64.decode64(string)
     end
 
-    alias_method :http_response, :response
+    alias http_response response
   end
 end

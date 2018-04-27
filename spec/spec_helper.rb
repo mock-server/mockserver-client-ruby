@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'simplecov'
 
 SimpleCov.start do
@@ -20,7 +22,7 @@ module HelperMethods
 
     # Options should have a list of parts which will be appended together to give the base path
     def initialize(*options)
-      @base_path = File.join(options.map { |f| f.to_s })
+      @base_path = File.join(options.map(&:to_s))
     end
 
     # Access specific file in the base path

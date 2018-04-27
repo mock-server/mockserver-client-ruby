@@ -1,32 +1,34 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe MockServer::Model::DSL do
-
   it 'generates http requests correctly' do
-    mock_request                  = http_request(:POST, '/login')
+    mock_request = http_request(:POST, '/login')
     mock_request.query_string_parameters = [parameter('returnUrl', '/account')]
-    mock_request.cookies          = [cookie('sessionId', '2By8LOhBmaW5nZXJwcmludCIlMDAzMW')]
-    mock_request.body             = exact("{username:'foo', password:'bar'}")
+    mock_request.cookies = [cookie('sessionId', '2By8LOhBmaW5nZXJwcmludCIlMDAzMW')]
+    mock_request.body = exact("{username:'foo', password:'bar'}")
 
     expect(to_camelized_hash(HTTP_REQUEST => mock_request)).to eq(FIXTURES.read('post_login_request.json'))
 
     # Block style
     mock_request = request(:POST, '/login') do |request|
       request.query_string_parameters = [parameter('returnUrl', '/account')]
-      request.cookies          = [cookie('sessionId', '2By8LOhBmaW5nZXJwcmludCIlMDAzMW')]
-      request.body             = exact("{username:'foo', password:'bar'}")
+      request.cookies = [cookie('sessionId', '2By8LOhBmaW5nZXJwcmludCIlMDAzMW')]
+      request.body = exact("{username:'foo', password:'bar'}")
     end
 
     expect(to_camelized_hash(HTTP_REQUEST => mock_request)).to eq(FIXTURES.read('post_login_request.json'))
   end
 
   it 'generates http responses correctly' do
-    mock_response             = http_response
+    mock_response = http_response
     mock_response.status_code = 401
-    mock_response.headers     = [header('Content-Type', 'application/json; charset=utf-8')]
+    mock_response.headers = [header('Content-Type', 'application/json; charset=utf-8')]
     mock_response.headers << header('Cache-Control', 'public, max-age=86400')
-    mock_response.body  = body('incorrect username and password combination')
+    mock_response.body = body('incorrect username and password combination')
     mock_response.delay = delay_by(:SECONDS, 1)
 
     expect(to_camelized_hash(HTTP_RESPONSE => mock_response)).to eq(FIXTURES.read('incorrect_login_response.json'))
@@ -34,9 +36,9 @@ describe MockServer::Model::DSL do
     # Block style
     mock_response = response do |response|
       response.status_code = 401
-      response.headers     = [header('Content-Type', 'application/json; charset=utf-8')]
+      response.headers = [header('Content-Type', 'application/json; charset=utf-8')]
       response.headers << header('Cache-Control', 'public, max-age=86400')
-      response.body  = body('incorrect username and password combination')
+      response.body = body('incorrect username and password combination')
       response.delay = delay_by(:SECONDS, 1)
     end
 
@@ -44,7 +46,7 @@ describe MockServer::Model::DSL do
   end
 
   it 'generates http forwards correctly' do
-    mock_forward      = http_forward
+    mock_forward = http_forward
     mock_forward.host = 'www.mock-server.com'
     mock_forward.port = 80
 
@@ -70,7 +72,7 @@ describe MockServer::Model::DSL do
   end
 
   it 'generates expectation correctly from file' do
-    payload          = FIXTURES.read('register_expectation.json')
+    payload = FIXTURES.read('register_expectation.json')
     mock_expectation = expectation_from_json(payload)
 
     expect(to_camelized_hash(mock_expectation.to_hash)).to eq(payload)
@@ -87,28 +89,27 @@ describe MockServer::Model::DSL do
     expect(to_camelized_hash(at_least(2))).to eq('unlimited' => 'true', 'remainingTimes' => 2)
   end
 
-
   describe 'transforming request body' do
     let(:expectation) { MockServer::Model::Expectation.new }
     let(:request) { MockServer::Model::Request.new }
 
-    [{type: :XPATH, value: '/mock/instance'},
-     {type: :REGEX, value: '\d+.\d+'},
-     {type: :STRING, value: 'Mockserver is great'}].each do |request_hash|
+    [{ type: :XPATH, value: '/mock/instance' },
+     { type: :REGEX, value: '\d+.\d+' },
+     { type: :STRING, value: 'Mockserver is great' }].each do |request_hash|
 
       it "generates a request body of type #{request_hash[:type]}" do
         request.body = MockServer::Model::Body.new(request_hash)
         expectation.request = request
 
-        expect(to_camelized_hash(expectation)).to eq({
-          "httpRequest" => {
-          "method" => "GET",
-            "body" => {
-              "type"  => request_hash[:type].to_s,
-              "value" => request_hash[:value].to_s
+        expect(to_camelized_hash(expectation)).to eq(
+          'httpRequest' => {
+            'method' => 'GET',
+            'body' => {
+              'type'  => request_hash[:type].to_s,
+              'value' => request_hash[:value].to_s
             }
           }
-        })
+        )
       end
     end
 
@@ -121,15 +122,15 @@ describe MockServer::Model::DSL do
         request.body = body
         expectation.request = request
 
-        expect(to_camelized_hash(expectation)).to eq({
-          "httpRequest" => {
-            "method" => "GET",
-            "body" => {
-              "type" => "STRING",
-              "value" => "Mockserver is great\n"
+        expect(to_camelized_hash(expectation)).to eq(
+          'httpRequest' => {
+            'method' => 'GET',
+            'body' => {
+              'type' => 'STRING',
+              'value' => "Mockserver is great\n"
             }
           }
-        })
+        )
       end
     end
   end

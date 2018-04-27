@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 # encoding: UTF-8
+
 #
 # The ArrayOf class stores instances of a given class only.
 # It enforces this by intercepting the methods :<<, :[]= and :insert on the Array class
@@ -15,9 +17,9 @@ module MockServer::Model
 
   # The ArrayOf class stores instances of a given class only.
   class ArrayOf < Array
-    alias_method :add_element, :<<
-    alias_method :set_element, :[]=
-    alias_method :insert_element, :insert
+    alias add_element <<
+    alias set_element []=
+    alias insert_element insert
 
     # Create an array from the elements passed in
     def initialize(items)
@@ -28,7 +30,7 @@ module MockServer::Model
 
     # The class/type that this array stores
     def child_class
-      fail 'Subclass should override method :child_class'
+      raise 'Subclass should override method :child_class'
     end
 
     # Add the item to the array
@@ -75,7 +77,7 @@ module MockServer::Model
       if item && item.class != child_class
         begin
           item = child_class.new(item)
-        rescue Exception => e # rubocop:disable Lint/RescueException
+        rescue StandardError => e
           raise "Failed to convert element: #{item} to required type #{child_class}. Error: #{e.message}"
         end
       end

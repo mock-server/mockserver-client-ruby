@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require_relative './model/expectation'
 require_relative './abstract_client'
 require_relative './utility_methods'
@@ -18,8 +20,8 @@ module MockServer
     # Registers an expectation with the mockserver
     # @param expectation [Expectation] the expectation to create the request from
     # @return [Object] the response from the register action
-    def register(expectation)
-      fail 'Expectation passed in is not valid type' unless expectation.is_a?(Expectation)
+    def register(expectation) # rubocop:disable Metrics/AbcSize
+      raise 'Expectation passed in is not valid type' unless expectation.is_a?(Expectation)
       request = create_expectation_request(expectation)
 
       logger.debug('Registering new expectation')
@@ -35,11 +37,10 @@ module MockServer
     # Create an expecation request to send to the expectation endpoint of
     # @param expectation [Expectation] the expectation  to create the request from
     # @return [Hash] a hash representing the request to use in registering an expectation with the mock server
-    # rubocop:disable Lint/LiteralInInterpolation
     def create_expectation_request(expectation)
       expectation_request = camelized_hash(expectation)
       logger.debug("Expectation JSON: #{expectation_request.to_json}")
-      fail "You can only set either of #{[HTTP_RESPONSE, HTTP_FORWARD]}. But not both" if expectation_request[HTTP_RESPONSE] && expectation_request[HTTP_FORWARD]
+      raise "You can only set either of #{[HTTP_RESPONSE, HTTP_FORWARD]}. But not both" if expectation_request[HTTP_RESPONSE] && expectation_request[HTTP_FORWARD]
       expectation_request
     end
   end

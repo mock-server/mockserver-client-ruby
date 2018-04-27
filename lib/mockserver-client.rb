@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require_relative './mockserver/version'
 require_relative './mockserver/mock_server_client'
 require_relative './mockserver/proxy_client'
@@ -7,6 +9,7 @@ require_relative './mockserver/proxy_client'
 require 'json/pure'
 
 # To fix serialization bugs. See: http://prettystatemachine.blogspot.com/2010/09/typeerrors-in-tojson-make-me-briefly.html
+# rubocop:disable Lint/UnifiedInteger
 class Fixnum
   def to_json(_)
     to_s

@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'rest-client'
 require 'logging_factory'
 require_relative './model/times'
@@ -24,8 +26,8 @@ module MockServer
     attr_accessor :logger
 
     def initialize(host, port)
-      fail 'Cannot instantiate AbstractClient class. You must subclass it.' if self.class == AbstractClient
-      fail 'Host/port must not be nil' unless host && port
+      raise 'Cannot instantiate AbstractClient class. You must subclass it.' if self.class == AbstractClient
+      raise 'Host/port must not be nil' unless host && port
       protocol = ('https' if port == 443) || 'http'
       @base   = RestClient::Resource.new("#{protocol}://#{host}:#{port}", headers: { 'Content-Type' => 'application/json' })
       @logger = ::LoggingFactory::DEFAULT_FACTORY.log(self.class)
@@ -34,7 +36,7 @@ module MockServer
     # Clear all expectations with the given request
     # @param request [Request] the request to use to clear an expectation
     # @return [Object] the response from the clear action
-    def clear(request)
+    def clear(request) # rubocop:disable Metrics/AbcSize
       request = camelized_hash(HTTP_REQUEST => Request.new(symbolize_keys(request)))
 
       logger.debug("Clearing expectation with request: #{request}")
@@ -61,7 +63,7 @@ module MockServer
     # Retrieve the list of requests that have been processed by the server
     # @param request [Request] to filter requests
     # @return [Object] the list of responses processed by the server
-    def retrieve(request = nil)
+    def retrieve(request = nil) # rubocop:disable Metrics/AbcSize
       request = request ? camelized_hash(HTTP_REQUEST => Request.new(symbolize_keys(request))) : {}
 
       logger.debug('Retrieving request list from mockserver')
@@ -95,7 +97,7 @@ module MockServer
     # @param request [Request] to filter requests
     # @param times [Times] expected number of times
     # @return [Object] the list of responses processed by the server that match the request
-    def verify(request, times = exactly(1))
+    def verify(request, times = exactly(1)) # rubocop:disable Metrics/AbcSize
       logger.debug('Sending query for verify to mockserver')
       results   = retrieve(request)
 
@@ -105,7 +107,7 @@ module MockServer
       is_exact  = !times.unlimited
 
       fulfilled = is_exact ? (num_times == results.size) : (num_times <= results.size)
-      fail "Expected request to be present: [#{num_times}] (#{is_exact ? 'exactly' : 'at least'}). But found: [#{results.size}]" unless fulfilled
+      raise "Expected request to be present: [#{num_times}] (#{is_exact ? 'exactly' : 'at least'}). But found: [#{results.size}]" unless fulfilled
       results
     end
   end

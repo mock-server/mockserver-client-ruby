@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+
 require 'hashie'
 require_relative './parameter'
 require_relative './enum'
@@ -11,7 +13,7 @@ module MockServer::Model
   # An enum for body type
   class BodyType < SymbolizedEnum
     def allowed_values
-      [:STRING, :REGEX, :XPATH, :PARAMETERS, :BINARY]
+      [:STRING, :REGEX, :XPATH, :PARAMETERS, :BINARY, :JSON, :JSON_SCHEMA, :XML_SCHEMA]
     end
   end
 
@@ -39,6 +41,18 @@ module MockServer::Model
 
     def exact(value)
       Body.new(type: :STRING, value: value)
+    end
+
+    def json(value)
+      Body.new(type: :JSON, value: value)
+    end
+
+    def json_schema(value)
+      Body.new(type: :JSON_SCHEMA, value: value)
+    end
+
+    def xml_schema(value)
+      Body.new(type: :XML_SCHEMA, value: value)
     end
 
     def regex(value)
