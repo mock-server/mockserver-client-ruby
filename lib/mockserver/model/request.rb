@@ -66,7 +66,7 @@ module MockServer::Model
 
   # DSL methods related to requests
   module DSL
-    def request(method, path, &_)
+    def request(method, path, &_arg)
       obj = Request.new(method: method, path: path)
       yield obj if block_given?
       obj

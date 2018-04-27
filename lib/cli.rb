@@ -50,7 +50,7 @@ module CLIHelpers
   # @param mockserver [Boolean] true to use mockserver, false to use proxy
   # @yieldparam [AbstractClient] a mockserver or a proxy client
   # @yieldparam [Struct] a struct created from options hash
-  def execute_command(mockserver = false, data_required = false, error_msg = '--data option must be provided', &_)
+  def execute_command(mockserver = false, data_required = false, error_msg = '--data option must be provided', &_arg)
     print_parameters(options)
     struct_options = to_struct({ data: nil }.merge(options))
     if data_required && !options['data']

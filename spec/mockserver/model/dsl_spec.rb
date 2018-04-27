@@ -50,3 +50,4 @@ RSpec.describe 'MockServer::Model::DSL' do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

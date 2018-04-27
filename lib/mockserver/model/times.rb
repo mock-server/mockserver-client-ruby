@@ -53,7 +53,7 @@ module MockServer::Model
       Times.new(remaining_times: num, unlimited: true)
     end
 
-    def times(&_)
+    def times(&_arg)
       obj = once
       yield obj if block_given?
       obj

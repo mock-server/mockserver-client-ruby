@@ -78,3 +78,4 @@ describe MockServer::MockServerClient do
     expect(client.retrieve(request(:POST, '/login')).code).to eq(200)
   end
 end
+# rubocop:enable Metrics/BlockLength

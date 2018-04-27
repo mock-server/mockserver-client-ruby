@@ -35,11 +35,11 @@ module MockServer::Model
       @value.to_s
     end
 
-    def as_json(_)
+    def as_json(_arg)
       @value.to_s
     end
 
-    def to_json(_)
+    def to_json(_arg)
       "\"#{@value}\""
     end
   end
