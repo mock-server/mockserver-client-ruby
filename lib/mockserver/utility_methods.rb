@@ -16,7 +16,7 @@ module MockServer::UtilityMethods
   # @return [Hash] the transformed hash
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
   def camelized_hash(obj)
-    obj = obj && obj.respond_to?(:to_hash) ? obj.to_hash : obj
+    obj = obj&.respond_to?(:to_hash) ? obj.to_hash : obj
 
     if obj.is_a?(Hash)
       obj.each_with_object({}) do |(k, v), acc|
@@ -58,3 +58,4 @@ module MockServer::UtilityMethods
     response
   end
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength

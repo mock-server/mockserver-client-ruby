@@ -170,3 +170,4 @@ describe MockServer::MockServerClient do
     it_behaves_like 'a successful mock response'
   end
 end
+# rubocop:enable Metrics/BlockLength

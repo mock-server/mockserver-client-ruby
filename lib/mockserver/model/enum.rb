@@ -35,6 +35,14 @@ module MockServer::Model
     def to_s
       @value.to_s
     end
+
+    def as_json(_arg)
+      @value.to_s
+    end
+
+    def to_json(_arg)
+      "\"#{@value}\""
+    end
   end
 
   # Subclass of Enum that has a list of symbols as allowed values.

@@ -5,6 +5,8 @@ AllCops:
   Exclude:
     - Gemfile
 
+Style/Encoding:
+  Enabled: false
 Style/SymbolArray:
   EnforcedStyle: brackets
 Style/LineLength:

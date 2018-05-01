@@ -32,11 +32,10 @@ module MockServer::Model
     property :cookies, default: Cookies.new([])
     property :headers, default: Headers.new([])
     property :body, transform_with: (lambda do |body|
-      if body && body.type.to_s == 'BINARY'
+      if body&.type&.to_s == 'BINARY'
         body.type = :STRING
         body.value = Base64.decode64(body.value)
       end
-
       body
     end)
 
@@ -67,7 +66,7 @@ module MockServer::Model
 
   # DSL methods related to requests
   module DSL
-    def request(method, path, &_)
+    def request(method, path, &_arg)
       obj = Request.new(method: method, path: path)
       yield obj if block_given?
       obj
@@ -76,9 +75,7 @@ module MockServer::Model
     def request_from_json(payload)
       body = payload['body']
 
-      if body && body.is_a?(String)
-        payload['body'] = { 'type' => :STRING, 'value' => body }
-      end
+      payload['body'] = { 'type' => :STRING, 'value' => body } if body&.is_a?(String)
 
       request = Request.new(symbolize_keys(payload))
       yield request if block_given?

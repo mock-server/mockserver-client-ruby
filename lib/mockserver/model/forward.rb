@@ -32,7 +32,7 @@ module MockServer::Model
 
   # DSL methods for forward
   module DSL
-    def forward(&_)
+    def forward(&_arg)
       obj = Forward.new
       yield obj if block_given?
       obj
