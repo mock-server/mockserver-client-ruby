@@ -32,7 +32,7 @@ module MockServer::Model
 
   # DSL Methods for a response
   module DSL
-    def response(&_)
+    def response(&_arg)
       obj = Response.new
       yield obj if block_given?
       obj
