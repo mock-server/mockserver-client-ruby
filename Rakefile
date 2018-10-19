@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-# encoding: UTF-8
+require "bundler/gem_tasks"
 
-require 'bundler/gem_tasks'
-require 'rubocop/rake_task'
-require 'rspec/core/rake_task'
+begin
+  require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:spec)
-RuboCop::RakeTask.new(:rubocop)
-
-desc 'Main task for this project to ensure the project passes build'
-task default: [:rubocop, :spec, :build]
+  RSpec::Core::RakeTask.new(:spec)
+  task default: :spec
+rescue LoadError
+  # no rspec available
+end

@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
 
-# Gem's dependencies in mockserver-client.gemspec
 gemspec
+
+group :development, :test do
+  gem 'rake', '~> 12.0.0'
+  gem 'pry-byebug'
+end

@@ -13,32 +13,32 @@ Thumbs.db
 ########
 *.gem
 *.rbc
-*.bundle
-*.so
-*.o
-*.a
-*.log
-.config
-.yardoc
-.rakeTasks
 Gemfile.lock
-InstalledFiles
-coverage
-*doc
-*tmp
-lib/bundler/man
-pkg
-spec/reports
-vendor/bundle
-target
-
-# vagrant #
-###########
-.vagrant
-
-# drone.io build testing #
-##########################
-drone.io
+.ruby-version
+.ruby-gemset
+.rvmrc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+## Specific to RubyMotion:
+.dat*
+.repl_history
+build/
+## Documentation cache and generated files:
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+## Environment normalization:
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
 
 # JetBrains config files #
 ##########################
