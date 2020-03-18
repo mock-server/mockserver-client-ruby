@@ -41,7 +41,7 @@ module MockServer
         fail ArgumentError, "Missing the required parameter 'expectations' when calling ExpectationApi.expectation_put"
       end
       # resource path
-      local_var_path = '/expectation'
+      local_var_path = '/mockserver/expectation'
 
       # query parameters
       query_params = {}
