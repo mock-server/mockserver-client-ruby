@@ -43,7 +43,7 @@ module MockServer
         fail ArgumentError, "Missing the required parameter 'ports' when calling ControlApi.bind_put"
       end
       # resource path
-      local_var_path = 'mockserver/bind'
+      local_var_path = '/mockserver/bind'
 
       # query parameters
       query_params = {}
@@ -92,7 +92,7 @@ module MockServer
         @api_client.config.logger.debug 'Calling API: ControlApi.clear_put ...'
       end
       # resource path
-      local_var_path = 'mockserver/clear'
+      local_var_path = '/mockserver/clear'
 
       # query parameters
       query_params = {}
@@ -136,7 +136,7 @@ module MockServer
         @api_client.config.logger.debug 'Calling API: ControlApi.reset_put ...'
       end
       # resource path
-      local_var_path = 'mockserver/reset'
+      local_var_path = '/mockserver/reset'
 
       # query parameters
       query_params = {}
@@ -190,7 +190,7 @@ module MockServer
         fail ArgumentError, 'invalid value for "type", must be one of logs, requests, recorded_expectations, active_expectations'
       end
       # resource path
-      local_var_path = 'mockserver/retrieve'
+      local_var_path = '/mockserver/retrieve'
 
       # query parameters
       query_params = {}
@@ -239,7 +239,7 @@ module MockServer
         @api_client.config.logger.debug 'Calling API: ControlApi.status_put ...'
       end
       # resource path
-      local_var_path = 'mockserver/status'
+      local_var_path = '/mockserver/status'
 
       # query parameters
       query_params = {}
@@ -286,7 +286,7 @@ module MockServer
         @api_client.config.logger.debug 'Calling API: ControlApi.stop_put ...'
       end
       # resource path
-      local_var_path = 'mockserver/stop'
+      local_var_path = '/mockserver/stop'
 
       # query parameters
       query_params = {}

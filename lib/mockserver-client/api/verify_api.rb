@@ -41,7 +41,7 @@ module MockServer
         fail ArgumentError, "Missing the required parameter 'verification' when calling VerifyApi.verify_put"
       end
       # resource path
-      local_var_path = 'mockserver/verify'
+      local_var_path = '/mockserver/verify'
 
       # query parameters
       query_params = {}
@@ -93,7 +93,7 @@ module MockServer
         fail ArgumentError, "Missing the required parameter 'verification_sequence' when calling VerifyApi.verify_sequence_put"
       end
       # resource path
-      local_var_path = 'mockserver/verifySequence'
+      local_var_path = '/mockserver/verifySequence'
 
       # query parameters
       query_params = {}
