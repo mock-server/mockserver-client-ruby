@@ -11,5 +11,5 @@ OpenAPI Generator version: 3.3.1
 =end
 
 module MockServer
-  VERSION = '5.3.0'
+  VERSION = '5.3.1'
 end
