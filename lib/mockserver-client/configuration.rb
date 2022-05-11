@@ -189,7 +189,7 @@ module MockServer
 
     # Returns base URL for specified operation based on server settings
     def base_url(operation = nil)
-      index = server_operation_index.fetch(operation, server_index)
+      index = server_operation_index.fetch(operation, nil) #lagarwal: replaced server_index with nil to fix bug in generated url.
       return "#{scheme}://#{[host, base_path].join('/').gsub(/\/+/, '/')}".sub(/\/+\z/, '') if index == nil
 
       server_url(index, server_operation_variables.fetch(operation, server_variables), operation_server_settings[operation])
