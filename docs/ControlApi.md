@@ -2,45 +2,65 @@
 
 All URIs are relative to *http://localhost:1080*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**bind_put**](ControlApi.md#bind_put) | **PUT** /bind | bind additional listening ports
-[**clear_put**](ControlApi.md#clear_put) | **PUT** /clear | clears expectations and recorded requests that match the request matcher
-[**reset_put**](ControlApi.md#reset_put) | **PUT** /reset | clears all expectations and recorded requests
-[**retrieve_put**](ControlApi.md#retrieve_put) | **PUT** /retrieve | retrieve recorded requests, active expectations, recorded expectations or log messages
-[**status_put**](ControlApi.md#status_put) | **PUT** /status | return listening ports
-[**stop_put**](ControlApi.md#stop_put) | **PUT** /stop | stop running process
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
+| [**mockserver_bind_put**](ControlApi.md#mockserver_bind_put) | **PUT** /mockserver/bind | bind additional listening ports |
+| [**mockserver_clear_put**](ControlApi.md#mockserver_clear_put) | **PUT** /mockserver/clear | clears expectations and recorded requests that match the request matcher |
+| [**mockserver_reset_put**](ControlApi.md#mockserver_reset_put) | **PUT** /mockserver/reset | clears all expectations and recorded requests |
+| [**mockserver_retrieve_put**](ControlApi.md#mockserver_retrieve_put) | **PUT** /mockserver/retrieve | retrieve recorded requests, active expectations, recorded expectations or log messages |
+| [**mockserver_status_put**](ControlApi.md#mockserver_status_put) | **PUT** /mockserver/status | return listening ports |
+| [**mockserver_stop_put**](ControlApi.md#mockserver_stop_put) | **PUT** /mockserver/stop | stop running process |
 
 
-# **bind_put**
-> Ports bind_put(ports)
+## mockserver_bind_put
+
+> <Ports> mockserver_bind_put(ports)
 
 bind additional listening ports
 
 only supported on Netty version
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::ControlApi.new
 ports = MockServer::Ports.new # Ports | list of ports to bind to, where 0 indicates dynamically bind to any available port
 
 begin
-  #bind additional listening ports
-  result = api_instance.bind_put(ports)
+  # bind additional listening ports
+  result = api_instance.mockserver_bind_put(ports)
   p result
 rescue MockServer::ApiError => e
-  puts "Exception when calling ControlApi->bind_put: #{e}"
+  puts "Error when calling ControlApi->mockserver_bind_put: #{e}"
+end
+```
+
+#### Using the mockserver_bind_put_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<Ports>, Integer, Hash)> mockserver_bind_put_with_http_info(ports)
+
+```ruby
+begin
+  # bind additional listening ports
+  data, status_code, headers = api_instance.mockserver_bind_put_with_http_info(ports)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <Ports>
+rescue MockServer::ApiError => e
+  puts "Error when calling ControlApi->mockserver_bind_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ports** | [**Ports**](Ports.md)| list of ports to bind to, where 0 indicates dynamically bind to any available port | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ports** | [**Ports**](Ports.md) | list of ports to bind to, where 0 indicates dynamically bind to any available port |  |
 
 ### Return type
 
@@ -52,39 +72,58 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
+## mockserver_clear_put
 
-# **clear_put**
-> clear_put(opts)
+> mockserver_clear_put(opts)
 
 clears expectations and recorded requests that match the request matcher
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::ControlApi.new
 opts = {
-  http_request: MockServer::HttpRequest.new # HttpRequest | request used to match expectations and recored requests to clear
+  unknown_base_type: TODO # UNKNOWN_BASE_TYPE | request used to match expectations and recored requests to clear
 }
 
 begin
-  #clears expectations and recorded requests that match the request matcher
-  api_instance.clear_put(opts)
+  # clears expectations and recorded requests that match the request matcher
+  api_instance.mockserver_clear_put(opts)
 rescue MockServer::ApiError => e
-  puts "Exception when calling ControlApi->clear_put: #{e}"
+  puts "Error when calling ControlApi->mockserver_clear_put: #{e}"
+end
+```
+
+#### Using the mockserver_clear_put_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> mockserver_clear_put_with_http_info(opts)
+
+```ruby
+begin
+  # clears expectations and recorded requests that match the request matcher
+  data, status_code, headers = api_instance.mockserver_clear_put_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue MockServer::ApiError => e
+  puts "Error when calling ControlApi->mockserver_clear_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **http_request** | [**HttpRequest**](HttpRequest.md)| request used to match expectations and recored requests to clear | [optional] 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **unknown_base_type** | [**UNKNOWN_BASE_TYPE**](UNKNOWN_BASE_TYPE.md) | request used to match expectations and recored requests to clear | [optional] |
 
 ### Return type
 
@@ -96,32 +135,52 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 
+## mockserver_reset_put
 
-# **reset_put**
-> reset_put
+> mockserver_reset_put
 
 clears all expectations and recorded requests
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::ControlApi.new
 
 begin
-  #clears all expectations and recorded requests
-  api_instance.reset_put
+  # clears all expectations and recorded requests
+  api_instance.mockserver_reset_put
 rescue MockServer::ApiError => e
-  puts "Exception when calling ControlApi->reset_put: #{e}"
+  puts "Error when calling ControlApi->mockserver_reset_put: #{e}"
+end
+```
+
+#### Using the mockserver_reset_put_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> mockserver_reset_put_with_http_info
+
+```ruby
+begin
+  # clears all expectations and recorded requests
+  data, status_code, headers = api_instance.mockserver_reset_put_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue MockServer::ApiError => e
+  puts "Error when calling ControlApi->mockserver_reset_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -134,48 +193,67 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 
+## mockserver_retrieve_put
 
-# **retrieve_put**
-> Object retrieve_put(opts)
+> <OneOfarrayarray> mockserver_retrieve_put(opts)
 
 retrieve recorded requests, active expectations, recorded expectations or log messages
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::ControlApi.new
 opts = {
-  format: 'format_example', # String | changes response format, default if not specificed is \"json\", supported values are \"java\", \"json\"
-  type: 'type_example', # String | specifies the type of object that is retrieve, default if not specified is \"requests\", supported values are \"logs\", \"requests\", \"recorded_expectations\", \"active_expectations\"
-  http_request: MockServer::HttpRequest.new # HttpRequest | request used to match which recorded requests, expectations or log messages to return, an empty body matches all requests, expectations or log messages
+  format: 'java', # String | changes response format, default if not specificed is \"json\", supported values are \"java\", \"json\", \"log_entries\"
+  type: 'logs', # String | specifies the type of object that is retrieve, default if not specified is \"requests\", supported values are \"logs\", \"requests\", \"recorded_expectations\", \"active_expectations\"
+  request_definition: MockServer::HttpRequest.new # RequestDefinition | request used to match which recorded requests, expectations or log messages to return, an empty body matches all requests, expectations or log messages
 }
 
 begin
-  #retrieve recorded requests, active expectations, recorded expectations or log messages
-  result = api_instance.retrieve_put(opts)
+  # retrieve recorded requests, active expectations, recorded expectations or log messages
+  result = api_instance.mockserver_retrieve_put(opts)
   p result
 rescue MockServer::ApiError => e
-  puts "Exception when calling ControlApi->retrieve_put: #{e}"
+  puts "Error when calling ControlApi->mockserver_retrieve_put: #{e}"
+end
+```
+
+#### Using the mockserver_retrieve_put_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<OneOfarrayarray>, Integer, Hash)> mockserver_retrieve_put_with_http_info(opts)
+
+```ruby
+begin
+  # retrieve recorded requests, active expectations, recorded expectations or log messages
+  data, status_code, headers = api_instance.mockserver_retrieve_put_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <OneOfarrayarray>
+rescue MockServer::ApiError => e
+  puts "Error when calling ControlApi->mockserver_retrieve_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **format** | **String**| changes response format, default if not specificed is \&quot;json\&quot;, supported values are \&quot;java\&quot;, \&quot;json\&quot; | [optional] 
- **type** | **String**| specifies the type of object that is retrieve, default if not specified is \&quot;requests\&quot;, supported values are \&quot;logs\&quot;, \&quot;requests\&quot;, \&quot;recorded_expectations\&quot;, \&quot;active_expectations\&quot; | [optional] 
- **http_request** | [**HttpRequest**](HttpRequest.md)| request used to match which recorded requests, expectations or log messages to return, an empty body matches all requests, expectations or log messages | [optional] 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **format** | **String** | changes response format, default if not specificed is \&quot;json\&quot;, supported values are \&quot;java\&quot;, \&quot;json\&quot;, \&quot;log_entries\&quot; | [optional] |
+| **type** | **String** | specifies the type of object that is retrieve, default if not specified is \&quot;requests\&quot;, supported values are \&quot;logs\&quot;, \&quot;requests\&quot;, \&quot;recorded_expectations\&quot;, \&quot;active_expectations\&quot; | [optional] |
+| **request_definition** | [**RequestDefinition**](RequestDefinition.md) | request used to match which recorded requests, expectations or log messages to return, an empty body matches all requests, expectations or log messages | [optional] |
 
 ### Return type
 
-**Object**
+[**OneOfarrayarray**](OneOfarrayarray.md)
 
 ### Authorization
 
@@ -183,33 +261,53 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, application/java, text/plain
+- **Content-Type**: application/json
+- **Accept**: application/json, application/java, text/plain
 
 
+## mockserver_status_put
 
-# **status_put**
-> Ports status_put
+> <Ports> mockserver_status_put
 
 return listening ports
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::ControlApi.new
 
 begin
-  #return listening ports
-  result = api_instance.status_put
+  # return listening ports
+  result = api_instance.mockserver_status_put
   p result
 rescue MockServer::ApiError => e
-  puts "Exception when calling ControlApi->status_put: #{e}"
+  puts "Error when calling ControlApi->mockserver_status_put: #{e}"
+end
+```
+
+#### Using the mockserver_status_put_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<Ports>, Integer, Hash)> mockserver_status_put_with_http_info
+
+```ruby
+begin
+  # return listening ports
+  data, status_code, headers = api_instance.mockserver_status_put_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <Ports>
+rescue MockServer::ApiError => e
+  puts "Error when calling ControlApi->mockserver_status_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -222,34 +320,54 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## mockserver_stop_put
 
-# **stop_put**
-> stop_put
+> mockserver_stop_put
 
 stop running process
 
 only supported on Netty version
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::ControlApi.new
 
 begin
-  #stop running process
-  api_instance.stop_put
+  # stop running process
+  api_instance.mockserver_stop_put
 rescue MockServer::ApiError => e
-  puts "Exception when calling ControlApi->stop_put: #{e}"
+  puts "Error when calling ControlApi->mockserver_stop_put: #{e}"
+end
+```
+
+#### Using the mockserver_stop_put_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> mockserver_stop_put_with_http_info
+
+```ruby
+begin
+  # stop running process
+  data, status_code, headers = api_instance.mockserver_stop_put_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue MockServer::ApiError => e
+  puts "Error when calling ControlApi->mockserver_stop_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -262,8 +380,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 

@@ -2,38 +2,58 @@
 
 All URIs are relative to *http://localhost:1080*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**verify_put**](VerifyApi.md#verify_put) | **PUT** /verify | verify a request has been received a specific number of times
-[**verify_sequence_put**](VerifyApi.md#verify_sequence_put) | **PUT** /verifySequence | verify a sequence of request has been received in the specific order
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
+| [**mockserver_verify_put**](VerifyApi.md#mockserver_verify_put) | **PUT** /mockserver/verify | verify a request has been received a specific number of times |
+| [**mockserver_verify_sequence_put**](VerifyApi.md#mockserver_verify_sequence_put) | **PUT** /mockserver/verifySequence | verify a sequence of request has been received in the specific order |
 
 
-# **verify_put**
-> verify_put(verification)
+## mockserver_verify_put
+
+> mockserver_verify_put(verification)
 
 verify a request has been received a specific number of times
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::VerifyApi.new
-verification = MockServer::Verification.new # Verification | request matcher and the number of times to match
+verification = nil # Verification | request matcher and the number of times to match
 
 begin
-  #verify a request has been received a specific number of times
-  api_instance.verify_put(verification)
+  # verify a request has been received a specific number of times
+  api_instance.mockserver_verify_put(verification)
 rescue MockServer::ApiError => e
-  puts "Exception when calling VerifyApi->verify_put: #{e}"
+  puts "Error when calling VerifyApi->mockserver_verify_put: #{e}"
+end
+```
+
+#### Using the mockserver_verify_put_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> mockserver_verify_put_with_http_info(verification)
+
+```ruby
+begin
+  # verify a request has been received a specific number of times
+  data, status_code, headers = api_instance.mockserver_verify_put_with_http_info(verification)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue MockServer::ApiError => e
+  puts "Error when calling VerifyApi->mockserver_verify_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **verification** | [**Verification**](Verification.md)| request matcher and the number of times to match | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **verification** | [**Verification**](Verification.md) | request matcher and the number of times to match |  |
 
 ### Return type
 
@@ -45,37 +65,56 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: text/plain
+- **Content-Type**: application/json
+- **Accept**: text/plain
 
 
+## mockserver_verify_sequence_put
 
-# **verify_sequence_put**
-> verify_sequence_put(verification_sequence)
+> mockserver_verify_sequence_put(verification_sequence)
 
 verify a sequence of request has been received in the specific order
 
-### Example
+### Examples
+
 ```ruby
-# load the gem
+require 'time'
 require 'mockserver-client'
 
 api_instance = MockServer::VerifyApi.new
-verification_sequence = MockServer::VerificationSequence.new # VerificationSequence | the sequence of requests matchers
+verification_sequence = nil # VerificationSequence | the sequence of requests matchers
 
 begin
-  #verify a sequence of request has been received in the specific order
-  api_instance.verify_sequence_put(verification_sequence)
+  # verify a sequence of request has been received in the specific order
+  api_instance.mockserver_verify_sequence_put(verification_sequence)
 rescue MockServer::ApiError => e
-  puts "Exception when calling VerifyApi->verify_sequence_put: #{e}"
+  puts "Error when calling VerifyApi->mockserver_verify_sequence_put: #{e}"
+end
+```
+
+#### Using the mockserver_verify_sequence_put_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> mockserver_verify_sequence_put_with_http_info(verification_sequence)
+
+```ruby
+begin
+  # verify a sequence of request has been received in the specific order
+  data, status_code, headers = api_instance.mockserver_verify_sequence_put_with_http_info(verification_sequence)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue MockServer::ApiError => e
+  puts "Error when calling VerifyApi->mockserver_verify_sequence_put_with_http_info: #{e}"
 end
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **verification_sequence** | [**VerificationSequence**](VerificationSequence.md)| the sequence of requests matchers | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **verification_sequence** | [**VerificationSequence**](VerificationSequence.md) | the sequence of requests matchers |  |
 
 ### Return type
 
@@ -87,8 +126,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: text/plain
-
-
+- **Content-Type**: application/json
+- **Accept**: text/plain
 
