@@ -1,3 +1,12 @@
+# This repository has been archived
+
+This project has been merged into the MockServer monorepo:
+**https://github.com/mock-server/mockserver-monorepo**
+
+The code now lives in the `mockserver-client-ruby/` subdirectory of the monorepo.
+
+All new issues and pull requests should be filed against the monorepo.
+
 # mockserver-client
 
 MockServer - the Ruby gem for the Mock Server API
